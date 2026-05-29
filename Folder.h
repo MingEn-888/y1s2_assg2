@@ -11,7 +11,7 @@ class Folder {
         string name;
         Folder* parent;
         vector<Folder*> subfolders;
-        vector<File*> files;
+        vector<File> files;
     public:
         // Constructor / Destructor
     Folder(const string& name, Folder* parent = nullptr);
@@ -30,13 +30,13 @@ class Folder {
  
     // Folder management
     void addSubfolder(Folder* folder);
-    bool removeSublfolderByName(const string& folderName);
+    bool removeSubfolderByName(const string& folderName);
     Folder* findSubfolder(const string& folderName) const;
 
 
 void displayTree(const string& prefix = "") const;
 
-void searchFile(const string& fullName, const string& current Path, vector<string>& results) const;
+void searchFile(const string& fullName, const string& currentPath, vector<string>& results) const;
 
 void recursiveDelete();
 

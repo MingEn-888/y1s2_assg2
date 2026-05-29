@@ -55,7 +55,7 @@ void Folder::addSubfolder(Folder* folder) {
     subfolders.push_back(folder);
 }
 
-bool Folder::removeSublfolderByName(const string& folderName) {
+bool Folder::removeSubfolderByName(const string& folderName) {
     for (auto it = subfolders.begin(); it != subfolders.end(); ++it) {
         if ((*it)->getName() == folderName) {
             delete *it;

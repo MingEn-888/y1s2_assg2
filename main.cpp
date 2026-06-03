@@ -20,8 +20,10 @@ string readNonEmptyLine(const string& prompt) {
         }
 
         // trim minimal
-        while (!line.empty() && (line[0] == ' ' || line[0] == '\t' || line[0] == '\n')) line.erase(line.begin());
-        while (!line.empty() && (line[line.size()-1] == ' ' || line[line.size()-1] == '\t' || line[line.size()-1] == '\n')) line.pop_back();
+        while (!line.empty() && (line[0] == ' ' || line[0] == '\t' || line[0] == '\n')) 
+            line.erase(line.begin());
+        while (!line.empty() && (line[line.size()-1] == ' ' || line[line.size()-1] == '\t' || line[line.size()-1] == '\n')) 
+            line.pop_back();
 
         if (!line.empty()) return line;
         cout << "Input cannot be empty.\n";

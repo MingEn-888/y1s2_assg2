@@ -79,7 +79,7 @@ string Folder::getPath() const {
     vector<string> parts;
     const Folder* current = this;
     while (current != nullptr) {
-        parts.push_back(current->name);
+        parts.push_back(current->name);// root/media/photo to {"photos", "media", "root"}
         current = current->parent;
     }
     string path = "";

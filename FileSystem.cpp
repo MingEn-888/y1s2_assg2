@@ -78,3 +78,7 @@ void FileSystem::displayFullTree() {
     cout << "File System Tree:\n";
     root->displayTree();
 }
+
+void FileSystem::showCurrentPath() {
+    cout << "Current path: " << currentFolder->getPath() << "\n";
+}

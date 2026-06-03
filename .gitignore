@@ -1,3 +1,4 @@
 *.exe
 *ds_Store
 .vscode/
+*.pdf

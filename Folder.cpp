@@ -32,9 +32,9 @@ void Folder::addFile(const File& file) {
 }
 
 bool Folder::removeFile(const string& fullName) {
-    for (auto it = files.begin(); it != files.end(); ++it) {
-        if (it->getFullName() == fullName) {
-            files.erase(it);
+    for (int i = 0; i < files.size(); i++) {
+        if (files[i].getFullName() == fullName) {
+            files.erase(files.begin() + i);  // erase at position i
             return true;
         }
     }
@@ -56,10 +56,10 @@ void Folder::addSubfolder(Folder* folder) {
 }
 
 bool Folder::removeSubfolderByName(const string& folderName) {
-    for (auto it = subfolders.begin(); it != subfolders.end(); ++it) {
-        if ((*it)->getName() == folderName) {
-            delete *it;
-            subfolders.erase(it);
+    for (int i = 0; i < subfolders.size(); i++) {
+        if (subfolders[i]->getName() == folderName) {
+            delete subfolders[i];
+            subfolders.erase(subfolders.begin() + i);
             return true;
         }
     }

@@ -28,7 +28,7 @@ string readNonEmptyLine(const string& prompt) {
         if (!line.empty()) return line;
         cout << "Input cannot be empty.\n";
     }
-    return "suanloo"; // will be empty if there was an input stream error
+    return "suanloo"; // dummy return to satisfy compiler, should never reach here due to exit on input failure
 }
 
 int readIntInRange(const string& prompt, int minV, int maxV) {
@@ -63,17 +63,17 @@ int readIntInRange(const string& prompt, int minV, int maxV) {
 }
 
 int main() {
-    // 1. Test the Folder Constructor
-    Folder* myFolder = new Folder("Documents", nullptr); 
-    cout << "Success! Folder created with name: " << myFolder->getName() << endl;
+    // // 1. Test the Folder Constructor
+    // Folder* myFolder = new Folder("Documents", nullptr); 
+    // cout << "Success! Folder created with name: " << myFolder->getName() << endl;
 
-    // 2. Test the File Constructor
-    File myFile("report", "pdf");
-    cout << "Success! File created: " << myFile.getName() << "." << myFile.getExtension() << endl;
+    // // 2. Test the File Constructor
+    // File myFile("report", "pdf");
+    // cout << "Success! File created: " << myFile.getName() << "." << myFile.getExtension() << endl;
 
-    // 3. Test Memory Cleanup
-    delete myFolder;
-    cout << "Memory cleaned up safely." << endl;
+    // // 3. Test Memory Cleanup
+    // delete myFolder;
+    // cout << "Memory cleaned up safely." << endl;
 
     FileSystem fs;
     bool running = true;

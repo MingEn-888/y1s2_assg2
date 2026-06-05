@@ -16,6 +16,13 @@ FileSystem::~FileSystem() {
     delete root;  // recursiveDelete() handles children
 }
 
+vector<string> FileSystem::searchFile(const string& name, const string& extension) {
+    vector<string> results;
+    string fullName = name + "." + extension;
+    root->searchFile(fullName, "", results);
+    return results;
+}
+
 // Returns true if folder created successfully, false if a folder with the same name already exists
 bool FileSystem::createFolder(const string& folderName) {
     if (currentFolder->findSubfolder(folderName) != nullptr) {
@@ -82,3 +89,4 @@ void FileSystem::displayFullTree() {
 void FileSystem::showCurrentPath() {
     cout << "Current path: " << currentFolder->getPath() << "\n";
 }
+

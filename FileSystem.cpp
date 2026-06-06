@@ -82,3 +82,10 @@ void FileSystem::displayFullTree() {
 void FileSystem::showCurrentPath() {
     cout << "Current path: " << currentFolder->getPath() << "\n";
 }
+
+vector<string> FileSystem::searchFile(const string& name, const string& extension) {
+    vector<string> results;
+    string fullName = name + "." + extension;
+    root->searchFile(fullName, "", results);
+    return results;
+}

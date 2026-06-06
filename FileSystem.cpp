@@ -1,15 +1,9 @@
-/*todo
-[]check if thhe filestystem can be connected to the main.cpp
-[]check if the function of file and folder can call and used inside filesystem.cpp, or need using virtual function
-[]check if the input and output of the function in file and folder can be used in the main.cpp
-[]check if can understand the code and the logic of the code, if not understand, need to add more comment to explain the code
-*/
-
 #include "FileSystem.h"
 
 FileSystem::FileSystem() {
     root = new Folder("Root", nullptr);
     currentFolder = root;
+    loadFileSystem("filesystem.txt"); // now we will load the file system from the file in constructor
 }
 
 FileSystem::~FileSystem() {
@@ -88,5 +82,99 @@ void FileSystem::displayFullTree() {
 
 void FileSystem::showCurrentPath() {
     cout << "Current path: " << currentFolder->getPath() << "\n";
+}
+
+void FileSystem::loadFileSystem(const string& filename) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        return; // File doesn't exist, just skip
+    }
+
+    string line;
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+
+        // Parse FOLDER lines
+        if (line.substr(0, 7) == "FOLDER ") {
+            string path = line.substr(7); // Remove "FOLDER " prefix
+            Folder* current = root;
+
+            // Navigate/create folders along the path
+            int start = 0;
+            while (start < path.length()) {
+                int slash = path.find('/', start);
+                if (slash == -1) slash = path.length();
+                
+                string folderName = path.substr(start, slash - start);
+                
+                // Skip "Root" as it's already created
+                if (folderName == "Root") {
+                    start = slash + 1;
+                    continue;
+                }
+
+                // Find or create subfolder
+                Folder* existing = current->findSubfolder(folderName);
+                if (existing == nullptr) {
+                    Folder* newFolder = new Folder(folderName, current);
+                    current->addSubfolder(newFolder);
+                    current = newFolder;
+                } else {
+                    current = existing;
+                }
+                
+                start = slash + 1;
+            }
+        }
+        // Parse FILE lines
+        else if (line.substr(0, 5) == "FILE ") {
+            string path = line.substr(5); // Remove "FILE " prefix
+
+            // Find last slash to separate folder path from filename
+            int lastSlash = path.rfind('/');
+            if (lastSlash == -1) continue;
+
+            string folderPath = path.substr(0, lastSlash);
+            string fileFullName = path.substr(lastSlash + 1);
+
+            // Navigate to the target folder
+            Folder* current = root;
+            int start = 0;
+            while (start < folderPath.length()) {
+                int slash = folderPath.find('/', start);
+                if (slash == -1) slash = folderPath.length();
+                
+                string folderName = folderPath.substr(start, slash - start);
+
+                if (folderName != "Root") {
+                    Folder* existing = current->findSubfolder(folderName);
+                    if (existing != nullptr) {
+                        current = existing;
+                    }
+                }
+                
+                start = slash + 1;
+            }
+
+            // Extract filename and extension
+            int dotPos = fileFullName.rfind('.');
+            string fileName, extension;
+            if (dotPos != -1) {
+                fileName = fileFullName.substr(0, dotPos);
+                extension = fileFullName.substr(dotPos + 1);
+            } else {
+                fileName = fileFullName;
+                extension = "";
+            }
+
+            // Add file to current folder if it doesn't exist
+            if (!current->fileExists(fileFullName)) {
+                current->addFile(File(fileName, extension));
+            }
+        }
+    }
+
+    file.close();
+    currentFolder = root; // Reset to root after loading
 }
 

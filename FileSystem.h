@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include "Folder.h"
 #include "File.h"
 using namespace std;
@@ -12,9 +13,10 @@ private:
     Folder* root;
     Folder* currentFolder;
     
-public:////
+public:
     FileSystem();
     ~FileSystem();
+    void loadFileSystem(const string& filename);
     bool createFolder(const std::string& name);
     bool createFile(const std::string& name, const std::string& extension);
     void displayCurrentFolder();

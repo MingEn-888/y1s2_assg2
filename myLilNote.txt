@@ -1,0 +1,10 @@
+// this file teach how to Compile .exe file manually
+
+# Navigate to your project directory
+cd "e:\C++\Sem 2\Assignment\Ass Y1s2\OOP ASS2\y1s2_assg2"
+
+# Compile
+g++ -g main.cpp File.cpp Folder.cpp FileSystem.cpp -o main.exe
+
+# Run the executable
+./main.exe

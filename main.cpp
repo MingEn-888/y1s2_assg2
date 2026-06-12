@@ -32,7 +32,6 @@ string readNonEmptyLine(const string& prompt) {
 int readIntInRange(const string& prompt, int minV, int maxV) {
     while (true) {
         string s = readNonEmptyLine(prompt);
-        if (s.empty()) return -99; // signal error
         
         //only accept 1 or 2 digit numbers (since the menu is 1-11)
         if (s.size()<1||s.size()>2) {
@@ -64,8 +63,8 @@ int main() {
     try {
         FileSystem fs;
         bool running = true;
-
         while (running) {
+            fs.loadFileSystem("filesystem.txt");
             try {
                 cout << "\n===== FILE SYSTEM MENU =====\n";
                 cout << "1. Create Folder\n";
@@ -83,7 +82,7 @@ int main() {
                 int choice = readIntInRange("Select option (1-11): ", 1, 11);
 
                 switch (choice) {
-                    case 1: {
+                    case 1: {//create folder
                         string folderName = readNonEmptyLine("Folder name: ");
                         if (fs.createFolder(folderName)) {
                             cout << "Folder created.\n";
@@ -93,7 +92,7 @@ int main() {
                         break;
                     }
 
-                    case 2: {
+                    case 2: {// create file
                         string fileName = readNonEmptyLine("File name (no extension): ");
                         string ext = readNonEmptyLine("Extension: ");
                         if (fs.createFile(fileName, ext)) {
@@ -108,11 +107,11 @@ int main() {
                         fs.displayCurrentFolder();
                         break;
 
-                    case 4:
+                    case 4: //display full tree
                         fs.displayFullTree();
                         break;
 
-                    case 5: {
+                    case 5: {//search file
                         string fileName = readNonEmptyLine("Search file name (no extension): ");
                         string ext = readNonEmptyLine("Extension: ");
                         vector<string> results = fs.searchFile(fileName, ext);
@@ -128,7 +127,7 @@ int main() {
                         break;
                     }
 
-                    case 6: {
+                    case 6: {// enter folder
                         string folderName = readNonEmptyLine("Enter folder name: ");
                         if (fs.enterFolder(folderName)) {
                             cout << "Entered folder.\n";
@@ -138,15 +137,16 @@ int main() {
                         break;
                     }
 
-                    case 7:
+                    case 7:{// go back to parent folder 
                         if (fs.goBackToParentFolder()) {
                             cout << "Moved to parent folder.\n";
                         } else {
                             cout << "[Warning] Already at root folder.\n";
                         }
                         break;
+                    }
 
-                    case 8: {
+                    case 8: { //delete file
                         string fileName = readNonEmptyLine("Delete file name (no extension): ");
                         string ext = readNonEmptyLine("Extension: ");
                         if (fs.deleteFile(fileName, ext)) {

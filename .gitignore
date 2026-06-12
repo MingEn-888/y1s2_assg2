@@ -2,3 +2,5 @@
 *ds_Store
 .vscode/
 *.pdf
+.output/
+*.o

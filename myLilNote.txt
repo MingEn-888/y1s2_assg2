@@ -8,3 +8,9 @@ g++ -g main.cpp File.cpp Folder.cpp FileSystem.cpp -o main.exe
 
 # Run the executable
 ./main.exe
+
+
+remember to always run:
+g++ -g main.cpp File.cpp Folder.cpp FileSystem.cpp -o main.exe
+
+after save the main.cpp, and drag the main.exe into output file

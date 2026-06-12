@@ -4,3 +4,5 @@
 *.pdf
 .output/
 *.o
+myLilNote.txt
+*.obj

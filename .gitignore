@@ -4,5 +4,5 @@
 *.pdf
 .output/
 *.o
-myLilNote.txt
+Setup.txt
 *.obj

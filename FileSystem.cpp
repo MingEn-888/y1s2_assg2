@@ -68,6 +68,11 @@ bool FileSystem::goBackToParentFolder() {
 
 void FileSystem::displayCurrentFolder() {
     cout << "Contents of " << currentFolder->getName() << ":\n";
+
+    if (currentFolder->getFiles().empty() && currentFolder->getSubfolders().empty()) {
+        cout << "  This folder is empty.\n";
+        return;
+    }
     for (const File& f : currentFolder->getFiles()) {
         cout << "  - " << f.getFullName() << "\n";
     }
@@ -78,6 +83,11 @@ void FileSystem::displayCurrentFolder() {
 
 void FileSystem::displayFullTree() {
     cout << "File System Tree:\n";
+    if (root->getFiles().empty() && root->getSubfolders().empty()) {
+        cout << "  Root\n";
+        cout << "  The file system is empty.\n";
+        return;
+    }
     root->displayTree();
 }
 

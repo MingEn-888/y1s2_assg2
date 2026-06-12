@@ -1,9 +1,4 @@
-/*todo
-[]check if thhe filestystem can be connected to the main.cpp
-[]check if the function of file and folder can call and used inside filesystem.cpp, or need using virtual function
-[]check if the input and output of the function in file and folder can be used in the main.cpp
-[]check if can understand the code and the logic of the code, if not understand, need to add more comment to explain the code
-*/
+
 #include "FileSystem.h"
 
 FileSystem::FileSystem() {
@@ -73,6 +68,11 @@ bool FileSystem::goBackToParentFolder() {
 
 void FileSystem::displayCurrentFolder() {
     cout << "Contents of " << currentFolder->getName() << ":\n";
+
+    if (currentFolder->getFiles().empty() && currentFolder->getSubfolders().empty()) {
+        cout << "  This folder is empty.\n";
+        return;
+    }
     for (const File& f : currentFolder->getFiles()) {
         cout << "  - " << f.getFullName() << "\n";
     }
@@ -83,6 +83,11 @@ void FileSystem::displayCurrentFolder() {
 
 void FileSystem::displayFullTree() {
     cout << "File System Tree:\n";
+    if (root->getFiles().empty() && root->getSubfolders().empty()) {
+        cout << "  Root\n";
+        cout << "  The file system is empty.\n";
+        return;
+    }
     root->displayTree();
 }
 

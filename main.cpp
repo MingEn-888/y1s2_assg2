@@ -59,6 +59,27 @@ int readIntInRange(const string& prompt, int minV, int maxV) {
     }
 }
 
+string readExtension(const string& prompt) {
+    while (true) {
+        string ext = readNonEmptyLine(prompt);
+
+        while (!ext.empty() && ext[0] == '.')
+            ext.erase(ext.begin());
+
+        if (ext.empty()) {
+            throw "Extension cannot be empty or just dots.";
+        }
+
+        for (char c : ext) {
+            if (c == '.') {
+            cout << "Extension cannot contain '.'. Enter it without dots (e.g. \"txt\", not \".txt\").\n";
+            continue;   //no throw here cuz break the loop  
+            }
+        }
+        return ext;
+    }
+}
+
 int main() {
     try {
         FileSystem fs;
@@ -93,7 +114,7 @@ int main() {
 
                     case 2: {// create file
                         string fileName = readNonEmptyLine("File name (no extension): ");
-                        string ext = readNonEmptyLine("Extension: ");
+                        string ext = readExtension("Extension: ");
                         if (fs.createFile(fileName, ext)) {
                             cout << "File created.\n";
                         } else {
@@ -112,7 +133,7 @@ int main() {
 
                     case 5: {//search file
                         string fileName = readNonEmptyLine("Search file name (no extension): ");
-                        string ext = readNonEmptyLine("Extension: ");
+                        string ext = readExtension("Extension: ");
                         vector<string> results = fs.searchFile(fileName, ext);
 
                         if (results.empty()) {
@@ -147,7 +168,7 @@ int main() {
 
                     case 8: { //delete file
                         string fileName = readNonEmptyLine("Delete file name (no extension): ");
-                        string ext = readNonEmptyLine("Extension: ");
+                        string ext = readExtension("Extension: ");
                         if (fs.deleteFile(fileName, ext)) {
                             cout << "File deleted.\n";
                         } else {

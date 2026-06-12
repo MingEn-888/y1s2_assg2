@@ -93,11 +93,8 @@ void FileSystem::showCurrentPath() {
 void FileSystem::loadFileSystem(const string& filename) {
     ifstream file(filename);
     if (!file.is_open()) {
-        cout << "[DEBUG] ERROR: Could not open " << filename << endl;//edbug
         return; // File doesn't exist, just skip
     }
-    cout << "[DEBUG] Successfully opened " << filename << endl;//debug
-    int lineCount = 0;//debug
 
     string line;
     while (getline(file, line)) {

@@ -64,7 +64,6 @@ int main() {
         FileSystem fs;
         bool running = true;
         while (running) {
-            fs.loadFileSystem("filesystem.txt");
             try {
                 cout << "\n===== FILE SYSTEM MENU =====\n";
                 cout << "1. Create Folder\n";

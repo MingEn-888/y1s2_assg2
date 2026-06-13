@@ -1,6 +1,5 @@
 #include "Folder.h"
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 Folder::Folder(const string& name, Folder* parent)
